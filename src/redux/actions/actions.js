@@ -1,5 +1,5 @@
 import types from '../types/types'
-import {firebase, google, facebook} from '../../firebase/firebase'
+import {firebase, google, facebook, db} from '../../firebase/firebase'
 
 export const login = (id, displayName, status) => {
     return {
@@ -69,5 +69,54 @@ export const loginEmail = (email, password) => {
         } catch (error) {
             dispatch(errorAction('Usuario o contraseña Incorrecta'))
         }
+    }
+}
+
+export const registerProduct = (id, name, price, quantity) => {
+    return {
+        type: types.SAVE,
+        payload: {
+            id,
+            name,
+            price,
+            quantity
+        }
+    }
+}
+
+export const registerProductDb = (id, name, price, quantity) => {
+    return async (dispatch) => {
+
+        const newProduct = {
+            id,
+            name,
+            price,
+            quantity
+        }
+
+        try {
+            const data = await db.collection(`/products`).add(newProduct);
+            console.log(data)
+            dispatch(registerProduct(id, name, price, quantity))
+        } catch (error) {
+            console.log(error)
+            dispatch(errorAction('Hubo un error al guardar los datos'))
+        }
+        
+    }
+}
+
+export const listProducts = (products) => {
+    return {
+        type: types.LIST,
+        payload: products
+    }
+}
+
+export const listProductsDb = () => {
+    return async(dispatch) => {
+        const data = await db.collection('/products').get();
+        console.log(data)
+        dispatch(listProducts(data))
     }
 }

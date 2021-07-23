@@ -1,23 +1,78 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { Card, Container, Navbar, Table } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import ModalProduct from '../components/ModalProduct';
+import { listProductsDb } from '../redux/actions/actions'
+
 
 const Dashboard = () => {
 
-    const history = useHistory();
+    const dispatch = useDispatch()
 
     const handleClose = () => {
         sessionStorage.removeItem('token')
         window.location.href = "/";
     }
 
+    const token = JSON.parse(sessionStorage.getItem('token'))
+    const [name, setName] = useState('')
+    
+    useEffect(() => {
+        if(token) {setName(token.name)}
+        dispatch(listProductsDb())
+    }, [])
+
+    const [showModal, setShowModal] = useState(false)
+
     return (
-        <div>
-            <h1>Estás en el escritorio.</h1>
-            <h2>Esta es una ruta protegida, pronto podrás hacer el CRUD aquí</h2>
-            <button onClick={handleClose}>
-                Cerrar Sesión
-            </button>
-        </div>
+        <>
+            <Navbar bg="dark" variant="dark">
+                <Container fluid>
+                    <NavLink to="/" className="navbar-brand">CRUD</NavLink>
+                    <div className="navbar-nav">
+                        <a className="nav-link" onClick={handleClose}>Cerrar Sessión</a>
+                    </div>
+                </Container>
+            </Navbar>
+            <Container fluid>
+                <h1 className="my-2">Bienvenido {name}</h1>
+                <Card>
+                    <Card.Header>
+                        <div className="d-flex justify-content-between align-items-center">
+                            <Card.Title>Lista de Productos</Card.Title>
+                            <button className="btn btn-primary" onClick={() => {setShowModal(true)}}>Nuevo</button>
+                        </div>
+                    </Card.Header>
+                    <Card.Body>
+                        <Table striped bordered hover>
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Precio</th>
+                                    <th>Cantidad</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Ejemplo</td>
+                                    <td>Ejemplo</td>
+                                    <td>Ejemplo</td>
+                                    <td>
+                                        <button type="button" className="btn btn-primary btn-sm me-2"><i className="fas fa-pencil-alt"></i></button>
+                                        <button type="button" className="btn btn-danger btn-sm me-2"><i className="fas fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </Table>
+                    </Card.Body>
+                </Card>
+            </Container>
+            <ModalProduct showModal= {showModal} setShowModal={setShowModal} />
+        </>
     )
 }
 

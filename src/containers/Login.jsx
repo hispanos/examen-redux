@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import '../styles/login.css'
 import useForm from '../hooks/useForm'
 import { useDispatch } from 'react-redux'
-import { login, loginGoogle } from '../redux/actions/actions'
+import { login, loginGoogle, loginFacebook } from '../redux/actions/actions'
 import Register from '../components/Register'
 
 const Login = () => {
@@ -25,6 +25,10 @@ const Login = () => {
         dispatch(loginGoogle());
     }
 
+    const handleFacebook = () => {
+        dispatch(loginFacebook());
+    }
+
     return (
         <div className="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
             <div className="card card0 border-0">
@@ -45,7 +49,7 @@ const Login = () => {
                             <form onSubmit={handleSubmit}>
                                 <div className="row mb-4 px-3">
                                     <h6 className="mb-0 me-4 mt-2 mb-2">Iniciar con</h6>
-                                    <div className="facebook text-center me-3">
+                                    <div className="facebook text-center me-3" onClick={handleFacebook}>
                                         <i className="fab fa-facebook-f"></i>
                                     </div>
                                     <div className="google text-center me-3" onClick={handleGoogle}>
@@ -87,6 +91,7 @@ const Login = () => {
                         <Register 
                             setIsRegister={setIsRegister}
                             handleGoogle={handleGoogle}
+                            handleFacebook={handleFacebook}
                         />
                     }
                     </div>

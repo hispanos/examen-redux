@@ -1,8 +1,12 @@
 import React from 'react';
 import useForm from '../hooks/useForm';
+import { useDispatch } from 'react-redux';
+import { registerUser } from '../redux/actions/actions'
 
 
 const Register = ({setIsRegister, handleGoogle}) => {
+
+    const dispatch = useDispatch();
 
     const [dataForm, handleChangeInput] = useForm({
         name: '',
@@ -12,6 +16,7 @@ const Register = ({setIsRegister, handleGoogle}) => {
 
     const handleRegister = (e) => {
         e.preventDefault();
+        dispatch(registerUser(dataForm.name, dataForm.email, dataForm.password))
     }
 
     return (

@@ -2,12 +2,14 @@ import React, { useState } from 'react'
 import '../styles/login.css'
 import useForm from '../hooks/useForm'
 import { useDispatch } from 'react-redux'
-import { login, loginGoogle, loginFacebook, loginEmail } from '../redux/actions/actions'
+import { loginGoogle, loginFacebook, loginEmail } from '../redux/actions/actions'
 import Register from '../components/Register'
+import { useSelector } from 'react-redux'
 
 const Login = () => {
 
     const dispatch = useDispatch();
+    const error = useSelector(store => store.error)
 
     const [isRegister, setIsRegister] = useState(false)
 
@@ -61,6 +63,13 @@ const Login = () => {
                                     <small className="or text-center">O</small>
                                     <div className="line"></div>
                                 </div>
+                                {error.status &&
+                                <div className="row px-3 mb-4">
+                                    <div class="alert alert-danger" role="alert">
+                                        {error.message}
+                                    </div>
+                                </div>
+                                }
                                 <div className="row px-3"> 
                                     <label className="mb-1">
                                         <h6 className="mb-0 text-sm">Correo</h6>

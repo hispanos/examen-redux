@@ -15,7 +15,7 @@ export const errorAction = (message) => {
     return {
         type: types.ERROR,
         payload: {
-            status: 'error',
+            status: true,
             message: message
         }
     }

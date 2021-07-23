@@ -1,5 +1,5 @@
 import types from '../types/types'
-export const ErrorReducer = (state = {}, action) => {
+export const ErrorReducer = (state = {status: false}, action) => {
 
     switch (action.type) {
         case types.ERROR:

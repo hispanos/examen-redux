@@ -8,10 +8,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
-import Login from '../containers/Login';
 import Dashboard from '../containers/Dashboard'
 import { Provider } from 'react-redux';
 import { store } from '../redux/store/store';
+import Login from '../containers/Login';
 
 const Routes = () => {
     return (

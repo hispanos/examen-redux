@@ -31,7 +31,16 @@ export const registerUser = (name, email, password) => {
     return async (dispatch) => {
         const data = await firebase.auth().createUserWithEmailAndPassword(email, password);
         const {user} = data;
-        console.log(user)
+        user.updateProfile({displayName: name})
         dispatch(login(user.uid, name))
+    }
+}
+
+export const loginEmail = (email, password) => {
+    return async (dispatch) => {
+        const data = await firebase.auth().signInWithEmailAndPassword(email, password)
+        const {user} = data;
+        console.log(user)
+        dispatch(login(user.uid, user.displayName))
     }
 }

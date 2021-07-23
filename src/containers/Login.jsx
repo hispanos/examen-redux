@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import '../styles/login.css'
 import useForm from '../hooks/useForm'
 import { useDispatch } from 'react-redux'
-import { login, loginGoogle, loginFacebook } from '../redux/actions/actions'
+import { login, loginGoogle, loginFacebook, loginEmail } from '../redux/actions/actions'
 import Register from '../components/Register'
 
 const Login = () => {
@@ -18,7 +18,7 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(login(dataForm.email, dataForm.password))
+        dispatch(loginEmail(dataForm.email, dataForm.password))
     }
 
     const handleGoogle = () => {

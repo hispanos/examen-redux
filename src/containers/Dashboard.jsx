@@ -61,9 +61,9 @@ const Dashboard = () => {
                             </thead>
                             <tbody>
                                 {
-                                    products.product ?
+                                    products.length ?
                                     (
-                                    products.product.map((product, index) => (
+                                    products.map((product, index) => (
                                         <tr key={index}>
                                             <td>{product.name}</td>
                                             <td>{product.price}</td>

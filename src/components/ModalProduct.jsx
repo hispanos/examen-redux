@@ -24,6 +24,7 @@ const ModalProduct = ({showModal, setShowModal}) => {
         e.preventDefault();
         dispatch(registerProductDb(id, dataForm.name, dataForm.price, dataForm.quantity))
         reset();
+        setShowModal(false)
     }
     
 

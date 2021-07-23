@@ -57,7 +57,7 @@ const ModalProduct = ({showModal, setShowModal}) => {
                     />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                    <Form.Label>Nombre</Form.Label>
+                    <Form.Label>Cantidad</Form.Label>
                     <Form.Control 
                         type="number" 
                         placeholder="Cantidad"

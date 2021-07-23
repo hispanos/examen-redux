@@ -116,7 +116,11 @@ export const listProducts = (products) => {
 export const listProductsDb = () => {
     return async(dispatch) => {
         const data = await db.collection('/products').get();
-        console.log(data)
-        dispatch(listProducts(data))
+        const products = []
+        data.docs.forEach(product => {
+            products.push(product.data())
+        });        
+
+        dispatch(listProducts(products))
     }
 }

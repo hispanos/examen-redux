@@ -2,7 +2,7 @@ import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Card, Container, Navbar, Table } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import ModalProduct from '../components/ModalProduct';
 import { listProductsDb } from '../redux/actions/actions'
@@ -11,6 +11,9 @@ import { listProductsDb } from '../redux/actions/actions'
 const Dashboard = () => {
 
     const dispatch = useDispatch()
+
+    const products = useSelector(store => store.products)
+    console.log(products)
 
     const handleClose = () => {
         sessionStorage.removeItem('token')
@@ -57,15 +60,24 @@ const Dashboard = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Ejemplo</td>
-                                    <td>Ejemplo</td>
-                                    <td>Ejemplo</td>
-                                    <td>
-                                        <button type="button" className="btn btn-primary btn-sm me-2"><i className="fas fa-pencil-alt"></i></button>
-                                        <button type="button" className="btn btn-danger btn-sm me-2"><i className="fas fa-trash-alt"></i></button>
-                                    </td>
-                                </tr>
+                                {
+                                    products.product ?
+                                    (
+                                    products.product.map((product, index) => (
+                                        <tr key={index}>
+                                            <td>{product.name}</td>
+                                            <td>{product.price}</td>
+                                            <td>{product.quantity}</td>
+                                            <td>
+                                                <button type="button" className="btn btn-primary btn-sm me-2"><i className="fas fa-pencil-alt"></i></button>
+                                                <button type="button" className="btn btn-danger btn-sm me-2"><i className="fas fa-trash-alt"></i></button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                    ) :
+                                    <p>No se encuentran Datos disponibles</p>
+                                }
+                                
                             </tbody>
                         </Table>
                     </Card.Body>

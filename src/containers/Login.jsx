@@ -1,15 +1,25 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../styles/login.css'
 import useForm from '../hooks/useForm'
 import { useDispatch } from 'react-redux'
 import { loginGoogle, loginFacebook, loginEmail } from '../redux/actions/actions'
 import Register from '../components/Register'
 import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
 const Login = () => {
 
     const dispatch = useDispatch();
     const error = useSelector(store => store.error)
+    const login = useSelector(store => store.login)
+    const history = useHistory();
+
+    useEffect(() => {
+        if(login.status === true) {
+            sessionStorage.setItem('token', JSON.stringify(login))
+            history.push('/')
+        }
+    }, [login.status])
 
     const [isRegister, setIsRegister] = useState(false)
 

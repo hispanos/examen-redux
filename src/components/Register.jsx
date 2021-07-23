@@ -2,10 +2,12 @@ import React from 'react';
 import useForm from '../hooks/useForm';
 import { useDispatch } from 'react-redux';
 import { registerUser } from '../redux/actions/actions'
+import { useSelector } from 'react-redux'
 
 
 const Register = ({setIsRegister, handleGoogle}) => {
 
+    const error = useSelector(store => store.error)
     const dispatch = useDispatch();
 
     const [dataForm, handleChangeInput] = useForm({
@@ -36,6 +38,13 @@ const Register = ({setIsRegister, handleGoogle}) => {
                     <small className="or text-center">O</small>
                     <div className="line"></div>
                 </div>
+                {error.status &&
+                    <div className="row px-3 mb-4">
+                        <div class="alert alert-danger" role="alert">
+                            {error.message}
+                        </div>
+                    </div>
+                }
                 <div className="row px-3"> 
                     <label className="mb-1">
                         <h6 className="mb-0 text-sm">Nombres Completos</h6>
